@@ -10,9 +10,9 @@ class GameService
         $this->boardService = new BoardService;
     }
 
-    public function storeGame(): Game
+    public function store(): Game
     {
-        $board = $this->boardService->storeBoard();
+        $board = $this->boardService->store();
 
         $game = new Game;
         $game->setBoard($board);
