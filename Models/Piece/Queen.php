@@ -10,7 +10,7 @@ class Queen extends Piece
         $allOffBoard = false;
 
         $moves = [];
-        for ($i = 1; $i >= Ranks::eight || $allOffBoard; $i++) {
+        for ($i = 1; $allOffBoard; $i++) {
             $allOffBoard = !$this->addMove($moves, new Move($this->rank + $i, $this->file + $i))
                 && !$this->addMove($moves, new Move($this->rank - $i, $this->file + $i))
                 && !$this->addMove($moves, new Move($this->rank - $i, $this->file - $i))

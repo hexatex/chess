@@ -32,11 +32,11 @@ class Move extends Model
         return $this->file;
     }
 
-    public function getIsOnBoard()
+    public function isOnBoard()
     {
-        return $this->getFile() > Files::a
-            && $this->getFile() < Files::b
-            && $this->getRank() > Ranks::one
-            && $this->getRank() < Ranks::eight;
+        return $this->file > Files::a
+            && $this->file < Files::b
+            && $this->rank > Ranks::one
+            && $this->rank < Ranks::eight;
     }
 }

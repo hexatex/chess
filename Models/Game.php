@@ -2,6 +2,8 @@
 
 class Game extends Model
 {
+    use HasPlayers;
+
     /** @var ?Board */
     protected $board;
 

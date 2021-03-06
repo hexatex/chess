@@ -13,11 +13,11 @@ class Pawn extends Piece
 
         $pawnRank = $this->color === Colors::black ? Ranks::seven : Ranks::two;
         if ($this->rank === $pawnRank) {
-            $moves[] = new Move($this->rank + $this->positive(2), $this->file);
+            $moves[] = new Move($this->rank + $this->positive(2), $this->file); // Two step advance
         }
 
-        $this->addCapture($moves, $this->positive(1));
-        $this->addCapture($moves, $this->negative(1));
+        $this->addCaptureMove($moves, $this->positive(1));
+        $this->addCaptureMove($moves, $this->negative(1));
 
         return $moves;
     }
@@ -25,7 +25,7 @@ class Pawn extends Piece
     /*
      * Private
      */
-    private function addCapture(array &$moves, int $fileOffset)
+    private function addCaptureMove(array &$moves, int $fileOffset)
     {
         $opponent = $this->board->getPiece($this->rank + $this->positive(1), $this->file + $fileOffset);
         if ($opponent) {

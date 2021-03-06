@@ -91,7 +91,7 @@ abstract class Piece extends Model
      */
     protected function addMove(array &$moves, Move $move): bool
     {
-        if (!$move->getIsOnBoard()) {
+        if (!$move->isOnBoard()) {
             return false;
         }
 
