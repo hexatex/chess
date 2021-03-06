@@ -2,16 +2,16 @@
 
 class BoardService
 {
-    public function storeBoard(): Board
+    public function store(): Board
     {
-        $pieces = array_merge(
-            $this->buildHomeRank(Colors::black),
-            $this->buildHomeRank(Colors::white),
-            $this->buildPawnRank(Colors::black),
-            $this->buildPawnRank(Colors::white)
-        );
-
         $board = new Board;
+
+        $pieces = array_merge(
+            $this->buildHomeRank(Colors::black, $board),
+            $this->buildHomeRank(Colors::white, $board),
+            $this->buildPawnRank(Colors::black, $board),
+            $this->buildPawnRank(Colors::white, $board)
+        );
 
         foreach ($pieces as $piece) {
             $board->addPiece($piece);
@@ -25,41 +25,43 @@ class BoardService
      */
     /**
      * @param Colors|string $color
-     * @return Piece[]|array
+     * @param Board $board
+     * @return Piece[]
      */
-    private function buildHomeRank(string $color): array
+    private function buildHomeRank(string $color, Board $board): array
     {
         $rank = $color === Colors::black ? Ranks::eight : Ranks::one;
 
         return [
-            new Rook($rank, Files::a, $color),
-            new Knight($rank, Files::b, $color),
-            new Bishop($rank, Files::c, $color),
-            new King($rank, Files::d, $color),
-            new Queen($rank, Files::e, $color),
-            new Bishop($rank, Files::f, $color),
-            new Knight($rank, Files::g, $color),
-            new Rook($rank, Files::h, $color),
+            new Rook($rank, Files::a, $color, $board),
+            new Knight($rank, Files::b, $color, $board),
+            new Bishop($rank, Files::c, $color, $board),
+            new King($rank, Files::d, $color, $board),
+            new Queen($rank, Files::e, $color, $board),
+            new Bishop($rank, Files::f, $color, $board),
+            new Knight($rank, Files::g, $color, $board),
+            new Rook($rank, Files::h, $color, $board),
         ];
     }
 
     /**
      * @param Colors|string $color
-     * @return Piece[]|array
+     * @param Board $board
+     * @return Piece[]
      */
-    private function buildPawnRank(string $color): array
+    private function buildPawnRank(string $color, Board $board): array
     {
         $rank = $color === Colors::black ? Ranks::eight : Ranks::one;
 
         return [
-            new Pawn($rank, Files::a, $color),
-            new Pawn($rank, Files::b, $color),
-            new Pawn($rank, Files::c, $color),
-            new Pawn($rank, Files::d, $color),
-            new Pawn($rank, Files::e, $color),
-            new Pawn($rank, Files::f, $color),
-            new Pawn($rank, Files::g, $color),
-            new Pawn($rank, Files::h, $color),
+            new Pawn($rank, Files::a, $color, $board),
+            new Pawn($rank, Files::b, $color, $board),
+            new Pawn($rank, Files::c, $color, $board),
+            new Pawn($rank, Files::d, $color, $board),
+            new Pawn($rank, Files::e, $color, $board),
+            new Pawn($rank, Files::f, $color, $board),
+            new Pawn($rank, Files::g, $color, $board),
+            new Pawn($rank, Files::h, $color, $board),
         ];
     }
 }

@@ -2,28 +2,39 @@
 
 abstract class Piece extends Model
 {
+    /** @var Ranks|int */
+    protected $rank = Ranks::one;
+
+    /** @var Files|int */
+    protected $file = Files::a;
+
+    /** @var Colors|string */
+    protected $color = Colors::black;
+
+    /** @var Board */
+    protected $board;
+
     /**
+     * Piece constructor.
      * @param Ranks|int $rank
      * @param Files|int $file
      * @param Colors|string $color
+     * @param Board $board
      */
-    public function __construct(int $rank, int $file, string $color)
+    public function __construct(int $rank, int $file, string $color, Board $board)
     {
         parent::__construct();
 
         $this->rank = $rank;
         $this->file = $file;
         $this->color = $color;
+        $this->board = $board;
     }
 
-    /** @var int */
-    public $rank = Ranks::one;
-
-    /** @var int */
-    public $file = Files::a;
-
-    /** @var string */
-    public $color = Colors::black;
+    /**
+     * @return Move[]
+     */
+    abstract function getAvailableMoves(): array;
 
     /**
      * @param Ranks|int
@@ -71,5 +82,34 @@ abstract class Piece extends Model
     public function getColor(): string
     {
         return $this->color;
+    }
+
+    /*
+     * Protected
+     */
+    protected function positive(int $i): int
+    {
+        return $this->color === Colors::black ? $i : $i * -1;
+    }
+
+    protected function negative(int $i): int
+    {
+        return $this->color === Colors::black ? $i * -1 : $i;
+    }
+
+    /**
+     * @param Move[] $moves
+     * @param Move $move
+     * @return bool
+     */
+    protected function addMove(array &$moves, Move $move): bool
+    {
+        if (!$move->getIsOnBoard()) {
+            return false;
+        }
+
+        $moves[] = $move;
+
+        return true;
     }
 }
