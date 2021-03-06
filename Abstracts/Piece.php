@@ -84,19 +84,6 @@ abstract class Piece extends Model
         return $this->color;
     }
 
-    /*
-     * Protected
-     */
-    protected function positive(int $i): int
-    {
-        return $this->color === Colors::black ? $i : $i * -1;
-    }
-
-    protected function negative(int $i): int
-    {
-        return $this->color === Colors::black ? $i * -1 : $i;
-    }
-
     /**
      * @param Move[] $moves
      * @param Move $move

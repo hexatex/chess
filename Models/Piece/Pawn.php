@@ -32,4 +32,14 @@ class Pawn extends Piece
             $moves[] = new Move($opponent->getRank(), $opponent->getFile());
         }
     }
+
+    private function positive(int $i): int
+    {
+        return $this->color === Colors::black ? $i * -1 : $i;
+    }
+
+    private function negative(int $i): int
+    {
+        return $this->color === Colors::black ? $i : $i * -1;
+    }
 }
