@@ -2,10 +2,7 @@
 
 class Player extends Model
 {
-    use HasColor;
-
-    /** @var Tournament|null */
-    protected $tournament;
+    use HasColor, HasTournament;
 
     /** @var Game[] */
     protected $gamesWon = [];
@@ -21,11 +18,6 @@ class Player extends Model
 
     /** @var Piece[] */
     protected $capturedPieces = [];
-
-    public function setTournament(Tournament $tournament): void
-    {
-        $this->tournament = $tournament;
-    }
 
     public function getScore(): int
     {
