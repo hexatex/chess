@@ -2,7 +2,7 @@
 
 class BoardService
 {
-    public function store(): Board
+    public function get(): Board
     {
         $board = new Board;
 

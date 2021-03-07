@@ -8,12 +8,12 @@ class Pawn extends Piece
     public function getAvailableMoves(): array
     {
         $moves = [
-            new Move($this->rank + $this->forward(1), $this->file),
+            new Move($this, $this->rank + $this->forward(1), $this->file),
         ];
 
         $pawnRank = $this->color === Colors::black ? Ranks::seven : Ranks::two;
         if ($this->rank === $pawnRank) {
-            $moves[] = new Move($this->rank + $this->forward(2), $this->file); // Two step advance
+            $moves[] = new Move($this, $this->rank + $this->forward(2), $this->file); // Two step advance
         }
 
         $this->addCaptureMove($moves, 1);
@@ -29,7 +29,7 @@ class Pawn extends Piece
     {
         $opponent = $this->board->getPiece($this->rank + $this->forward(1), $this->file + $fileOffset);
         if ($opponent) {
-            $moves[] = new Move($opponent->getRank(), $opponent->getFile());
+            $moves[] = new Move($this, $opponent->getRank(), $opponent->getFile());
         }
     }
 

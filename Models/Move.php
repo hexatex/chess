@@ -2,34 +2,23 @@
 
 class Move extends Model
 {
-    /** @var Ranks|int */
-    protected $rank;
+    use HasRankFile;
 
-    /** @var Files|int */
-    protected $file;
+    /** @var Piece */
+    protected $piece;
 
-    public function __construct(int $rank, int $file)
+    public function __construct(Piece $piece, int $rank, int $file)
     {
         parent::__construct();
 
+        $this->piece = $piece;
         $this->rank = $rank;
         $this->file = $file;
     }
 
-    /**
-     * @return Ranks|int
-     */
-    public function getRank(): int
+    public function getPiece(): Piece
     {
-        return $this->rank;
-    }
-
-    /**
-     * @return Files|int
-     */
-    public function getFile(): int
-    {
-        return $this->file;
+        return $this->piece;
     }
 
     public function isOnBoard()

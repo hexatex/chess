@@ -2,8 +2,7 @@
 
 class Player extends Model
 {
-    /** @var Colors|string */
-    protected $color;
+    use HasColor;
 
     /** @var Tournament|null */
     protected $tournament;
@@ -17,13 +16,11 @@ class Player extends Model
     /** @var Game[] */
     protected $gamesLost = [];
 
-    /**
-     * @param Colors|string $color
-     */
-    public function setColor(string $color): void
-    {
-        $this->color = $color;
-    }
+    /** @var Game */
+    protected $currentGame;
+
+    /** @var Piece[] */
+    protected $capturedPieces = [];
 
     public function setTournament(Tournament $tournament): void
     {
@@ -37,5 +34,33 @@ class Player extends Model
         }
 
         return count($this->gamesWon) + (count($this->gamesDrawn) / 2);
+    }
+
+    public function setCurrentGame(Game $game): void
+    {
+        $this->currentGame = $game;
+    }
+
+    public function getCurrentGame(): Game
+    {
+        return $this->currentGame;
+    }
+
+    public function addCapturedPiece(Piece $piece): void
+    {
+        $this->capturedPieces[$piece->getCode()] = $piece;
+    }
+
+    /**
+     * @return Piece[]
+     */
+    public function getCapturedPieces(): array
+    {
+        return $this->capturedPieces;
+    }
+
+    public function removeCapturedPiece(Piece $piece): void
+    {
+        unset($this->capturedPieces[$piece->getCode()]);
     }
 }

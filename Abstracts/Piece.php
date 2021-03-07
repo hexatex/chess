@@ -2,14 +2,10 @@
 
 abstract class Piece extends Model
 {
-    /** @var Ranks|int */
-    protected $rank = Ranks::one;
+    use HasColor, HasRankFile;
 
-    /** @var Files|int */
-    protected $file = Files::a;
-
-    /** @var Colors|string */
-    protected $color = Colors::black;
+    /** @var Player */
+    protected $player;
 
     /** @var Board */
     protected $board;
@@ -36,52 +32,14 @@ abstract class Piece extends Model
      */
     abstract function getAvailableMoves(): array;
 
-    /**
-     * @param Ranks|int
-     */
-    public function setRank(int $rank): void
+    public function setPlayer(Player $player): void
     {
-        $this->rank = $rank;
+        $this->player = $player;
     }
 
-    /**
-     * @return Ranks|int
-     */
-    public function getRank(): int
+    public function getPlayer(): Player
     {
-        return $this->rank;
-    }
-
-    /**
-     * @param Files|int
-     */
-    public function setFile(int $file): void
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * @return Files|int
-     */
-    public function getFile(): int
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param Colors|string $color
-     */
-    public function setColor(string $color): void
-    {
-        $this->color = $color;
-    }
-
-    /**
-     * @return Colors|string
-     */
-    public function getColor(): string
-    {
-        return $this->color;
+        return $this->player;
     }
 
     /**

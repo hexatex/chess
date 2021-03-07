@@ -19,4 +19,18 @@ class Board extends Model
     {
         unset($this->pieces[$piece->getRank()][$piece->getFile()]);
     }
+
+    public function movePiece(Move $move): ?Piece
+    {
+        $captured = $this->getPiece($move->getRank(), $move->getFile());
+
+        $piece = $move->getPiece();
+        $this->removePiece($piece);
+
+        $piece->setRank($move->getRank());
+        $piece->setFile($move->getFile());
+        $this->addPiece($piece);
+
+        return $captured;
+    }
 }

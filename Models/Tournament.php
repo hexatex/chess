@@ -2,6 +2,7 @@
 
 class Tournament extends Model
 {
+    use HasGames;
     use HasPlayers {
         addPlayer as parentAddPlayer;
     }
@@ -11,9 +12,6 @@ class Tournament extends Model
 
     /** @var ScoringVariations|int */
     protected $scoringVariation = ScoringVariations::regular;
-
-    /** @var Game[] */
-    protected $games = [];
 
     /**
      * @param TournamentFormats|int $format
@@ -45,11 +43,6 @@ class Tournament extends Model
     public function getScoringVariation(): int
     {
         return $this->scoringVariation;
-    }
-
-    public function addGame(Game $game): void
-    {
-        $this->games[] = $game;
     }
 
     public function addPlayer(Player $player): void

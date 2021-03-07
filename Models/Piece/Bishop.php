@@ -11,10 +11,10 @@ class Bishop extends Piece
 
         $moves = [];
         for ($i = 1; $allOffBoard; $i++) {
-            $allOffBoard = !$this->addMove($moves, new Move($this->rank + $i, $this->file + $i))
-                && !$this->addMove($moves, new Move($this->rank - $i, $this->file + $i))
-                && !$this->addMove($moves, new Move($this->rank - $i, $this->file - $i))
-                && !$this->addMove($moves, new Move($this->rank + $i, $this->file - $i));
+            $allOffBoard = !$this->addMove($moves, new Move($this, $this->rank + $i, $this->file + $i))
+                && !$this->addMove($moves, new Move($this, $this->rank - $i, $this->file + $i))
+                && !$this->addMove($moves, new Move($this, $this->rank - $i, $this->file - $i))
+                && !$this->addMove($moves, new Move($this, $this->rank + $i, $this->file - $i));
         }
 
         return $moves;

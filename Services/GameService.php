@@ -12,11 +12,19 @@ class GameService
 
     public function store(): Game
     {
-        $board = $this->boardService->store();
+        $board = $this->boardService->get();
 
         $game = new Game;
         $game->setBoard($board);
 
         return $game;
+    }
+
+    public function movePiece(Game $game, Move $move)
+    {
+        $captured = $game->getBoard()->movePiece($move);
+        if ($captured) {
+            $move->getPiece()->getPlayer()->addCapturedPiece($captured);
+        }
     }
 }
